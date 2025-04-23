@@ -57,7 +57,7 @@ Este projeto em Python realiza a **consulta de dados meteorológicos** a partir 
 ## 📊 Exemplo de Gráfico
 
 <p align="center">
-  <img src="Graph example.png" alt="Gráfico de Umidade vs Temperatura" width="500"/>
+  <img src="GraphExample.png" alt="Gráfico de Umidade vs Temperatura" width="500"/>
 </p>
 
 ---
