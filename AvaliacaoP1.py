@@ -103,3 +103,54 @@ def obtencaoPrevisaoTempo(latitude,longitude,nomeLugar):
     return dadosTabela       
 
 
+lugar = input("Informe o nome da cidade [Ex.: Bebedouro SP]: ") 
+latitude, longitude = obtencaoCoordenadas(lugar)
+
+if latitude and longitude:
+    dadosTabela = obtencaoPrevisaoTempo(latitude, longitude, lugar)
+
+#coleta de dados para plotagem do gráfico
+
+umidades = [dia['umidade_relativa_media'] for dia in dadosTabela]
+temperaturas = [dia['temperatura_aparente_media'] for dia in dadosTabela]
+datas_labels = [dia['dataFormatada'] for dia in dadosTabela]
+
+# Define os limites e os passos dos eixos
+min_temp = 0
+max_temp = 50
+min_umi = 0
+max_umi = 100
+
+# Arredonda os limites para múltiplos de 5 e 10
+xticks = np.arange(int(min_temp), int(max_temp)+5, 5)  
+yticks = np.arange(int(min_umi), int(max_umi)+10, 10)  
+
+# Criação do gráfico
+plt.figure(figsize=(10,6))
+# plt.plot(temperaturas, umidades, marker='o', linestyle='-', color='teal')
+plt.scatter(temperaturas, umidades, color='teal', s=100, alpha=0.7, edgecolors='black')
+
+for i, data in enumerate(datas_labels):
+    plt.text(temperaturas[i], umidades[i], data, fontsize=9, ha='center')
+
+coef = np.polyfit(temperaturas, umidades, 1)     
+tendencia = np.poly1d(coef)                     
+temperaturas_ordenadas = np.linspace(min(temperaturas), max(temperaturas), 100)
+plt.plot(temperaturas_ordenadas, tendencia(temperaturas_ordenadas), color='red', linestyle='--', label='Tendência')
+
+plt.title('Umidade Relativa Média x Temperatura Aparente Média')
+plt.xlabel('Temperatura Aparente Média (°C)')
+plt.ylabel('Umidade Relativa Média (%)')
+plt.grid(True)
+
+plt.xticks(xticks)
+plt.yticks(yticks)
+
+# Salvar o gráfico
+grafico_nome = "grafico_umidade_vs_temperatura.png"
+plt.tight_layout()
+plt.savefig(grafico_nome)
+plt.close()
+
+
+
