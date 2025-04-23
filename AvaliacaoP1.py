@@ -153,4 +153,64 @@ plt.savefig(grafico_nome)
 plt.close()
 
 
+# Criação de tabela HTML para exibição dos dados
+tabela = '<table><thead>\
+<tr><th colspan="9">Previsões de Ventos [Intervalo de 5 dias]</th></tr>\
+<tr><th>Data</th><th>Rajada média do vento (10m)[km/h]</th><th>Rajada mínima do vento (10m)[km/h]</th>\
+<th>Velocidade média do vento (10m)[km/h]</th><th>Velocidade mínima do vento (10m)[km/h]</th>\
+<th>Probabilidade mínima de precipitação[mm]</th><th>Probabilidade média de precipitação[mm]</th>\
+<th>Umidade Relativa média[%]</th><th>Temperatura Aparente Média[°C]</th></tr></thead>\
+<tbody>'
+
+for valores in dadosTabela:
+    tabela += '<tr>\
+    <td>'+str(valores['dataFormatada']) + '</td>\
+    <td>'+str(valores['vento_rajada_media']) + '</td>\
+    <td>'+str(valores['vento_rajada_min']) + '</td>\
+    <td>'+str(valores['vento_velocidade_media']) + '</td>\
+    <td>'+str(valores['vento_velocidade_min']) + '</td>\
+    <td>'+str(valores['precipitacao_min']) + '</td>\
+    <td>'+str(valores['precipitacao_media']) + '</td>\
+    <td>'+str(valores['umidade_relativa_media']) + '</td>\
+    <td>'+str(valores['temperatura_aparente_media']) + '</td>\
+    </tr>'  
+tabela += '</tbody></table>'
+pagina = '<html><head> <meta charset="UTF-8">'
+css = '<style> table{border-collapse: collapse; width:90%; }\
+td, th { border: 1px solid #ddd; padding: 8px; font-size: 1.5em;}\
+tr:nth-child(even){background-color: #f2f2f2;}\
+tr:hover {background-color: #ddd;}\
+td{text-align:center;}\
+thead {padding-top: 12px; padding-bottom: 12px;background-color: 93adcf;\
+color: black;}</style>'
+pagina += css + '</head><body>'
+pagina += '<div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">'
+pagina += '<div style="flex: 1; min-width: 300px;">'
+pagina += '<h2>Gráfico: Umidade Relativa Média x Temperatura Aparente Média</h2>'
+pagina += f'<img src="{grafico_nome}" alt="Gráfico Umidade x Temperatura" style="width:80%; max-width:800px;"><br><br>'
+pagina += '</div>'
+pagina += '<div style="flex: 1; min-width: 300px;">'
+pagina += '<h2>Curva Delta T</h2>'
+pagina += '<img src="https://th.bing.com/th/id/OIP.7htdfrG3_eU_WfPPl20ynAAAAA?rs=1&pid=ImgDetMain" alt="Curva Delta T" style="width:60%;">'
+pagina += '</div>'
+pagina += '</div>'
+
+quadro_local = f'''
+<div style="position: fixed; top: 20px; right: 20px; background-color: #eef; 
+            padding: 15px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2); 
+            font-size: 1em; max-width: 250px; z-index: 999;">
+    <strong>Local:</strong> {lugar}<br>
+    <strong>Latitude:</strong> {latitude}<br>
+    <strong>Longitude:</strong> {longitude}
+</div>
+'''
+
+pagina += quadro_local 
+
+pagina += tabela + '</body></html>'
+
+arquivoHtml = open("AvaliacaoP1.html", "w", encoding="utf-8")
+arquivoHtml.write(pagina)
+arquivoHtml.close()
+
 
