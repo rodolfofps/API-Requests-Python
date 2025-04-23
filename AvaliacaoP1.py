@@ -209,7 +209,7 @@ pagina += quadro_local
 
 pagina += tabela
 pagina += '<footer style="text-align: center; font-size: 1.2em; margin-top: 50px; color: #555;">'
-pagina += 'Desenvolvido por Fulano - <a href="https://github.com/usuario/repositorio" target="_blank">Ver no GitHub</a>'
+pagina += 'Desenvolvido por Rodolfo Santos - <a href="https://github.com/rodolfofps" target="_blank">Ver no GitHub</a>'
 pagina += '</footer>'
 pagina += '</body></html>'
 
