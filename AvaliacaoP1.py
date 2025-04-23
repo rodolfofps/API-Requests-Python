@@ -207,7 +207,11 @@ quadro_local = f'''
 
 pagina += quadro_local 
 
-pagina += tabela + '</body></html>'
+pagina += tabela
+pagina += '<footer style="text-align: center; font-size: 1.2em; margin-top: 50px; color: #555;">'
+pagina += 'Desenvolvido por Fulano - <a href="https://github.com/usuario/repositorio" target="_blank">Ver no GitHub</a>'
+pagina += '</footer>'
+pagina += '</body></html>'
 
 arquivoHtml = open("AvaliacaoP1.html", "w", encoding="utf-8")
 arquivoHtml.write(pagina)
